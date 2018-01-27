@@ -16,7 +16,7 @@ defmodule Player do
       card === "Q" -> 7
       card === "K" -> 8
       card === "A" -> 10
-      true -> card / 2
+      true -> String.to_integer(card) / 2
     end
   end
 

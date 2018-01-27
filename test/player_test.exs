@@ -7,8 +7,8 @@ defmodule PlayerTest do
     assert Player.to_num("Q") == 7
     assert Player.to_num("K") == 8
     assert Player.to_num("A") == 10
-    assert Player.to_num(8) == 4
-    assert Player.to_num(7) == 3.5
+    assert Player.to_num("8") == 4
+    assert Player.to_num("7") == 3.5
   end
 
   test "cards_value() should work" do
