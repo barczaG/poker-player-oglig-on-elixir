@@ -1,7 +1,7 @@
 defmodule HelloWeb.PlayerController do
   use HelloWeb, :controller
   alias Poison.Parser
-  @version "0.0.1"
+  @version "0.1.0 hojj"
 
   def index(conn, params) do
     # IO.inspect params
@@ -19,37 +19,7 @@ defmodule HelloWeb.PlayerController do
   end
 
   def bet_request(game_state) do
-    #const myPlayer = _.findWhere(gameState.players, {id: gameState.in_action})
-    #const cards = myPlayer.hole_cards
-    my_player = Enum.find(game_state["players"], fn(player) -> player["id"] == game_state["in_action"] end)
-    cards = my_player["hole_cards"]
-
-    points = Player.cards_value(cards)
-    IO.inspect points
-    # if (folded && cValue > 15) {
-    #   bet(myPlayer.stack)
-    # } else if (!folded && cValue > 24) {
-    #   bet(myPlayer.stack)
-    # } else {
-    #   bet(0)
-    # }
-    folded = Player.is_folded(game_state)
-    
-    cond do
-      folded and points > 15 -> my_player["stack"]
-      !folded and points > 24 -> my_player["stack"]
-      true -> 0
-    end
-
-    # folded = Player.is_folded(game_state)
-    # case points do
-    #   x when points > 12 -> my_player["stack"]
-    #   _ -> 0
-    # end
-    
-    # IO.inspect my_player
-    # IO.inspect cards
-    # Enum.random(0..100)
+    FinalPlayer.bet_request(game_state)
   end
 
   def showdown() do
