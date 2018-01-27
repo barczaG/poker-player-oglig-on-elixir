@@ -16,12 +16,11 @@ defmodule Player do
       card === "Q" -> 7
       card === "K" -> 8
       card === "A" -> 10
-      true -> card / 2 |> Integer.parse()
+      true -> card / 2
     end
   end
 
-  # def cards_value(cards), do: Player.to_num(hd(cards)) + Player.to_num(tl(cards))
   def cards_value(cards) do
-    cards |> Enum.map(to_num()) |> Enum.sum()
+    cards |> Enum.map(fn(card) -> Player.to_num(card) end) |> Enum.sum()
   end
 end
