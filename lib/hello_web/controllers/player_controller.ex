@@ -26,10 +26,26 @@ defmodule HelloWeb.PlayerController do
 
     points = Player.cards_value(cards)
     IO.inspect points
-    case points do
-      x when points > 12 -> my_player["stack"]
-      _ -> 0
+    # if (folded && cValue > 15) {
+    #   bet(myPlayer.stack)
+    # } else if (!folded && cValue > 24) {
+    #   bet(myPlayer.stack)
+    # } else {
+    #   bet(0)
+    # }
+    folded = Player.is_folded(game_state)
+    
+    cond do
+      folded and points > 15 -> my_player["stack"]
+      !folded and points > 24 -> my_player["stack"]
+      true -> 0
     end
+
+    # folded = Player.is_folded(game_state)
+    # case points do
+    #   x when points > 12 -> my_player["stack"]
+    #   _ -> 0
+    # end
     
     # IO.inspect my_player
     # IO.inspect cards
