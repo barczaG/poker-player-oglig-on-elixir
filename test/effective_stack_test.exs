@@ -5,6 +5,6 @@ defmodule EffectiveStackTest do
   test "calculate() should work 3" do
     game_state = "game-state.json" |> File.read!() |> Poison.decode!()
 
-    EffectiveStack.calculate(game_state)
+    IO.inspect EffectiveStack.calculate(game_state)
   end
 end

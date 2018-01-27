@@ -11,13 +11,24 @@ defmodule EffectiveStack do
     myPlayerStack = myPlayer["stack"]
     myPlayerSum = (myPlayerBet + myPlayerStack) / bigBlind
 
-    Enum.each(players, fn player -> {
-      if player["id"] !== myPlayerId && (player.status === "active") do:
-        IO.puts "rock"
-    })
+    activePlayers = Enum.count(players, fn(player) -> player["id"] !== myPlayerId && player["status"] === "active" end)
 
-    IO.puts bigBlind
-    IO.puts myPlayerSum
+    other_players_stack_sum = Enum.reduce(players, fn (sum_stack, player) ->
+      IO.inspect player["stack"]
+      IO.inspect player["bet"]
+      if player["id"] !== myPlayerId && player["status"] === "active" do
+        sum_stack + (player["stack"] + player["bet"]) / bigBlind
+      end
+    end
+    )
+
+    other_players_avg_stack = other_players_stack_sum / activePlayers
+
+    if myPlayerSum < other_players_avg_stack do
+      myPlayerSum
+    else
+      other_players_avg_stack
+    end
 
   end
 end
