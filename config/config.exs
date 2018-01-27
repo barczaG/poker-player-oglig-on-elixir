@@ -6,8 +6,8 @@
 use Mix.Config
 
 # General application configuration
-config :hello,
-  ecto_repos: [Hello.Repo]
+# config :hello,
+#   ecto_repos: [Hello.Repo]
 
 # Configures the endpoint
 config :hello, HelloWeb.Endpoint,
