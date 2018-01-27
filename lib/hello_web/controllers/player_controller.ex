@@ -18,7 +18,7 @@ defmodule HelloWeb.PlayerController do
   end
 
   def bet_request() do
-    0
+    Enum.random(0..100)
   end
 
   def showdown() do
