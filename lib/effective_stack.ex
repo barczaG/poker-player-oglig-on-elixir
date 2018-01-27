@@ -3,11 +3,21 @@ defmodule EffectiveStack do
   @version "0.0.1"
 
   def calculate(game_state) do
-    game_state = Parser.parse!(game_state||"{}")
-    bigBlind = 2 * game_state.small_blind
-    # myPlayerBet = gameState.players[gameState.in_action].bet
-    # myPlayerStack = gameState.players[gameState.in_action].stack
-    # myPlayerSum = (myPlayerBet + myPlayerStack) / bigBlind
+    bigBlind = 2 * game_state["small_blind"]
+    players = game_state["players"] 
+    myPlayerId = game_state["in_action"]
+    myPlayer = Enum.at(players, myPlayerId)
+    myPlayerBet = myPlayer["bet"]
+    myPlayerStack = myPlayer["stack"]
+    myPlayerSum = (myPlayerBet + myPlayerStack) / bigBlind
+
+    Enum.each(players, fn player -> {
+      if player["id"] !== myPlayerId && (player.status === "active") do:
+        IO.puts "rock"
+    })
+
     IO.puts bigBlind
+    IO.puts myPlayerSum
+
   end
 end
