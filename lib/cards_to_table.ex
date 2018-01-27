@@ -17,12 +17,12 @@ defmodule CardsToTable do
   end
 
   def convert(cards) do
-    IO.puts(hd(cards)["rank"])
-    first_card_num = CardsToTable.to_num(hd(cards)["rank"])
-    second_card_num = CardsToTable.to_num(tl(cards)["rank"])
+    IO.puts("rank" <> Enum.at(cards, 1)["rank"])
+    first_card_num = CardsToTable.to_num(Enum.at(cards, 0)["rank"])
+    second_card_num = CardsToTable.to_num(Enum.at(cards, 1)["rank"])
 
-    first_card_str = CardsToTable.format_rank(hd(cards)["rank"])
-    second_card_str = CardsToTable.format_rank(tl(cards)["rank"])
+    first_card_str = CardsToTable.format_rank(Enum.at(cards, 0)["rank"])
+    second_card_str = CardsToTable.format_rank(Enum.at(cards, 1)["rank"])
 
     if first_card_num > second_card_num do
       table_str = first_card_str <> second_card_str
@@ -30,19 +30,19 @@ defmodule CardsToTable do
       table_str = second_card_str <> first_card_str
     end
 
-    if hd(cards)["suit"] === tl(cards)["suit"] do
-      table_str = Enum.join(table_str, "s")
+    if Enum.at(cards, 0)["suit"] === Enum.at(cards, 1)["suit"] do
+      table_str = table_str <> "s"
     else
-      table_str = Enum.join(table_str, "o")
+      table_str = table_str <> "o"
     end
 
     table_str
   end
 
   def get_percentage(cards) do
-    card = CardsToTable.convert(cards)
-    preflop_table = "preflop-table.json" |> File.read!() |> Poison.decode!
-    record = Enum.find_value(preflop_table, fn(table) -> table["cards"] === card end)
+    card_str = CardsToTable.convert(cards)
+    preflop_table = "preflop-table.json" |> File.read!() |> Poison.decode!()
+    record = Enum.find(preflop_table, fn(table) -> table["cards"] === card_str end)
 
     record["percentage"]
   end
